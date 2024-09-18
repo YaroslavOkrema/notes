@@ -10,13 +10,21 @@ import {
     Typography
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Layout = () => {
+    const navigate = useNavigate();
+
     const [isDrawerOpen, setDrawerOpen] = useState(false);
 
-    const toggleDrawer = (open) => (event) => {
-        setDrawerOpen(open);
+    const toggleDrawer = () =>  {
+        setDrawerOpen(prevState => !prevState)
+    }
+
+    const handleClick = (path) => {
+        navigate(path);
     }
 
     return (
@@ -29,7 +37,7 @@ const Layout = () => {
                         color="inherit"
                         aria-label="menu"
                         sx={{ mr: 2 }}
-                        onClick={toggleDrawer(true)}
+                        onClick={toggleDrawer}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -39,13 +47,13 @@ const Layout = () => {
                 </Toolbar>
             </AppBar>
 
-            <Drawer open={isDrawerOpen} onClose={toggleDrawer(false)}>
+            <Drawer open={isDrawerOpen} onClose={toggleDrawer}>
                 <List>
                     <ListItem>
-                        <ListItemButton>Home</ListItemButton>
+                        <ListItemButton onClick={() => handleClick('main')}>Home</ListItemButton>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton>Widgets</ListItemButton>
+                        <ListItemButton onClick={() => handleClick('widgets')}>Widgets</ListItemButton>
                     </ListItem>
                 </List>
             </Drawer>
