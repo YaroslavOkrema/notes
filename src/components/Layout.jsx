@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
     AppBar,
     Drawer,
@@ -10,22 +10,12 @@ import {
     Typography
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import { useNavigate } from 'react-router-dom';
+import {useLayout} from "../hooks/useLayout";
 
 
 
 const Layout = () => {
-    const navigate = useNavigate();
-
-    const [isDrawerOpen, setDrawerOpen] = useState(false);
-
-    const toggleDrawer = () =>  {
-        setDrawerOpen(prevState => !prevState)
-    }
-
-    const handleClick = (path) => {
-        navigate(path);
-    }
+    const {isDrawerOpen, toggleDrawer, handleClick} = useLayout();
 
     return (
         <div>

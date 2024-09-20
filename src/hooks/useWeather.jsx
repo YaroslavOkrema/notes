@@ -11,9 +11,10 @@ export function useWeather(lat, lon) {
     }, [lat, lon]);
 
     async function fetchData(lat, lon) {
-        const apiKey = '642c1ad128fd816bcb4ea30d07064974';
+        const apiKey = process.env.REACT_APP_API_KEY;
+        const apiUrl = `${process.env.REACT_APP_API_URL}?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
-        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`);
+        const response = await axios.get(apiUrl);
         setWeatherData(response.data);
         console.log(response.data);
     }
