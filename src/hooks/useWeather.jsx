@@ -11,14 +11,17 @@ export function useWeather() {
         if (location.lat && location.lon) {
             fetchData(location.lat, location.lon);
         }
-    }, [location]);
+    });
 
     async function fetchData(lat, lon) {
         const response = await getWeatherByCoords(lat, lon);
         setWeatherData(response.data);
+        setWeatherIcon(response.data);
+    }
 
-        if (response.data.weather && response.data.weather.length > 0) {
-            const iconPath = response.data.weather[0].icon;
+    function setWeatherIcon(data) {
+        if (data.weather && data.weather.length > 0) {
+            const iconPath = data.weather[0].icon;
             const iconUrl = `https://openweathermap.org/img/wn/${iconPath}@2x.png`;
             setIcon(iconUrl);
         }
