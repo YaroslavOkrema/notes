@@ -1,10 +1,8 @@
 import React from 'react';
-import {useLocation} from "../hooks/useLocation";
 import {useWeather} from "../hooks/useWeather";
 import "../styles/Main.css";
 
 const Main = () => {
-    const { location} = useLocation();
     const {
         icon,
         temp,
@@ -13,7 +11,7 @@ const Main = () => {
         wind,
         country,
         name
-    } = useWeather(location.lat, location.lon);
+    } = useWeather();
 
     return (
         <div>

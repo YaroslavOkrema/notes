@@ -1,20 +1,20 @@
-import axios from "axios";
 import {useEffect, useState} from "react";
-import {API_KEY, API_URL} from "../constants/const.ts";
+import {getWeatherByCoords} from "../API/requestByCoord";
+import {useLocation} from "./useLocation";
 
-export function useWeather(lat, lon) {
-    const [weatherData, setWeatherData] = useState(null);
-    const [icon, setIcon] = useState(null);
+export function useWeather() {
+    const {location} = useLocation();
+    const [weatherData, setWeatherData] = useState({});
+    const [icon, setIcon] = useState('');
 
     useEffect(() => {
-        if (lat && lon) {
-            fetchData(lat, lon);
+        if (location.lat && location.lon) {
+            fetchData(location.lat, location.lon);
         }
-    }, [lat, lon]);
+    }, [location]);
 
     async function fetchData(lat, lon) {
-        const apiUrl = `${API_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
-        const response = await axios.get(apiUrl);
+        const response = await getWeatherByCoords(lat, lon);
         setWeatherData(response.data);
 
         if (response.data.weather && response.data.weather.length > 0) {
