@@ -2,39 +2,45 @@ import React from 'react';
 import {useLocation} from "../hooks/useLocation";
 import {useWeather} from "../hooks/useWeather";
 import "../styles/Main.css";
-import {useIcon} from "../hooks/useIcon";
 
 const Main = () => {
-    const location = useLocation();
-    const weatherData = useWeather(location.lat, location.lon);
-    const weatherIcon = useIcon(weatherData);
+    const { location} = useLocation();
+    const {
+        icon,
+        temp,
+        description,
+        humidity,
+        wind,
+        country,
+        name
+    } = useWeather(location.lat, location.lon);
 
     return (
         <div>
-            {weatherData && (
+            {(
                 <div className="container">
                     <div className="left">
                         <div className="main-info">
-                            <img src={weatherIcon} alt="img"/>
-                            <p className="temp">{weatherData.main.temp}°C</p>
+                            {icon && <img src={icon} alt="Weather icon"/>}
+                            <p className="temp">{temp}°C</p>
                         </div>
                         <div>
-                            <p>{weatherData.weather[0].description}</p>
+                            <p>{description}</p>
                         </div>
                         <div className="other-info">
                             <div className="humidity">
                                 <div>Humidity</div>
-                                <p>{weatherData.main.humidity}</p>
+                                <p>{humidity}</p>
                             </div>
                             <div className="spacer"></div>
                             <div className="wind">
                                 <div>Wind</div>
-                                <p>{weatherData.wind.speed} M/S</p>
+                                <p>{wind} M/S</p>
                             </div>
                         </div>
                     </div>
                     <div className="right">
-                        <p>{weatherData.name}, {weatherData.sys.country}</p>
+                        <p>{name}, {country}</p>
                     </div>
                 </div>
             )}

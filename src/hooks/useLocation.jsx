@@ -8,13 +8,14 @@ export function useLocation() {
     }, []);
 
     function getLocation() {
-        navigator.geolocation.getCurrentPosition(position => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-
-            setLocation({ lat, lon });
-        });
+        navigator.geolocation.getCurrentPosition(
+            ({ coords: { latitude: lat, longitude: lon}}) => {
+                setLocation({lat, lon});
+            }
+        );
     }
 
-    return location;
+    return {
+        location
+    };
 }
