@@ -1,0 +1,23 @@
+.container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.other-info {
+    display: flex;
+}
+
+.spacer {
+    border-left: 1px solid black;
+    height: 55px;
+}
+
+.humidity {
+    margin-right: 20px;
+}
+
+.wind {
+    margin-left: 20px;
+}
